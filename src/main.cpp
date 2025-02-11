@@ -55,8 +55,8 @@ int main(int argc, char* argv[])
 		std::stringstream ss;
 		ss << fs.rdbuf();
 		auto contents = ss.str();
-
-		boost::regex reg(R"(\.(\?AV|PEAV)(.+?)@@\0)");
+		//这里我在原表达式中加了 \?AU ，因为vs2022编译dll后发现除了AV也有AU，经过测试没问题
+		boost::regex reg(R"(\.(\?AV|\?AU|PEAV)(.+?)@@\0)");
 
 		// replace RTTI types
 		contents = boost::regex_replace(contents, reg, [&](const boost::smatch& m)
